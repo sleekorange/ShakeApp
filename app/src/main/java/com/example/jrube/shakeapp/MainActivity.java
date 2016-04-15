@@ -15,7 +15,7 @@ package com.example.jrube.shakeapp;
 public class MainActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.johan.main";
-// Git test. Hans has been doing tricks here!
+// Git test. Hans has been doing tricks here! og jonas! :)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
