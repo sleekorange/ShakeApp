@@ -25,7 +25,7 @@ import java.util.List;
 public class Shake extends AppCompatActivity implements SensorEventListener {
 
     public final static String EXTRA_MESSAGE = "shakeApp.Shake.message";
-
+    // Hej Git
     int count = 1;
     int totalTime = 0;
     private final int finalScore = 200;
