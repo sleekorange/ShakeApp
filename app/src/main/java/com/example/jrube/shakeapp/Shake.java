@@ -28,7 +28,7 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
     // Hej Git
     int count = 1;
     int totalTime = 0;
-    private final int finalScore = 200;
+    private final int finalScore = 300;
     private boolean init;
     private Sensor mAccelerometer;
     private SensorManager mSensorManager;
