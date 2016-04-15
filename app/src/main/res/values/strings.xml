@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ShakeApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="counter">0</string>
+    <string name="title_activity_shake">Shake</string>
+    <string name="title_activity_result">Result</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_background_worker">BackgroundWorker</string>
+</resources>
