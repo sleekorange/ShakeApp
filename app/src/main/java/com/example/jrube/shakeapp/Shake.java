@@ -1,10 +1,16 @@
 package com.example.jrube.shakeapp;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -25,39 +31,68 @@ import java.util.List;
 public class Shake extends AppCompatActivity implements SensorEventListener {
 
     public final static String EXTRA_MESSAGE = "shakeApp.Shake.message";
-    // Hej Git
+    User user;
     int count = 1;
+    int error = 0;
     int totalTime = 0;
-    private final int finalScore = 300;
+    float procentage;
+    Button startGameBtn;
+    ImageView flask;
+    private final int finalScore = 500;
+    private final int maxCount = 300;
     private boolean init;
     private Sensor mAccelerometer;
     private SensorManager mSensorManager;
     private float x1, x2, x3;
     private static final float ERROR = (float) 7.0;
 
-    private TextView counter, xText, yText, zText, theProgress;
+    private TextView counter, xText, yText, zText, theProgress, userName;
 
     private ProgressBar progressBar;
     private int progressStatus = 0;
     private Handler handler = new Handler();
+
+    MediaPlayer player;
+
+
+
+;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_shake);
+        setContentView(R.layout.activity_shake);
         Intent intent = getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        user = new User(this);
+
 
 
 
         counter = (TextView) findViewById(R.id.counter);
-        xText = (TextView) findViewById(R.id.xText);
-        yText = (TextView) findViewById(R.id.yText);
-        zText = (TextView) findViewById(R.id.zText);
-        theProgress = (TextView) findViewById(R.id.theProgress);
-        progressBar = (ProgressBar) findViewById(R.id.myProgressBar);
+        //xText = (TextView) findViewById(R.id.xText);
+        //yText = (TextView) findViewById(R.id.yText);
+        //zText = (TextView) findViewById(R.id.zText);
+        userName = (TextView) findViewById(R.id.userName);
+        //theProgress = (TextView) findViewById(R.id.theProgress);
+        //progressBar = (ProgressBar) findViewById(R.id.myProgressBar);
+
+        startGameBtn = (Button) findViewById(R.id.startGame);
+
+        flask = (ImageView)findViewById(R.id.flask);
+
+        String username = user.getUserName();
+
+        userName.setText("Press to start, " + username + ".");
+
+        Typeface mFont = Typeface.createFromAsset(getAssets(), "shake.ttf");
+
+        startGameBtn.setTypeface(mFont);
+        userName.setTypeface(mFont);
+
+
 
 
 
@@ -118,6 +153,41 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         progressStatus = 0;
+
+        view.setVisibility(View.GONE);
+        userName.setText("SHAKE! SHAKE!! SHAKE!!!");
+    }
+
+    public void shakeBottle(){
+
+        final Animation shake = AnimationUtils
+                .loadAnimation(getApplicationContext(), R.anim.shake);
+
+        flask.startAnimation(shake);
+
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                shake.setAnimationListener(new Animation.AnimationListener() {
+//
+//                    @Override
+//                    public void onAnimationStart(Animation animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) {
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation) {
+//                        shakeBottle();
+//                    }
+//                });
+//
+//
+//            }
+//        },1000); //adding one sec delay
     }
 
 
@@ -132,9 +202,9 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
         y = e.values[1];
         z = e.values[2];
 
-        xText.setText("X : "+ (int)x);
-        yText.setText("Y : "+ (int)y);
-        zText.setText("Z : "+ (int)z);
+//        xText.setText("X : "+ (int)x);
+//        yText.setText("Y : "+ (int)y);
+//        zText.setText("Z : "+ (int)z);
 
 
         if (!init) {
@@ -167,29 +237,57 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
             x3 = z;
 
 
-            //Horizontal Shake Detected!
+            if (diffZ > 8) {
+
+                error = error+1;
+            }
+
+            //Horizontal Shake Detected!!
             if (diffX < diffY) {
 
-                counter.setText("Shake Count : "+ count);
+                //counter.setText("Shake Count : "+ count);
                 count = count+1;
                 //Toast.makeText(Shake.this, "Shake Detected!", Toast.LENGTH_SHORT).show();
-                if (progressStatus < progressBar.getMax()) {
+                /*if (progressStatus < progressBar.getMax()) {
                     progressStatus = count;
                     progressBar.setProgress(progressStatus);
-                    theProgress.setText(progressStatus + " / " + progressBar.getMax());
-                }
+                    //theProgress.setText(progressStatus + " / " + progressBar.getMax());
+                }*/
 
-                if (progressStatus == progressBar.getMax()) {
+                procentage = (float)((count*100)/maxCount);
+                String sProcentage = Float.toString(procentage);
 
+                System.out.println("COUNT: "+ count);
+                System.out.println("MAX: "+ maxCount);
+                System.out.println("The procentage: "+ procentage);
+
+                switch (sProcentage) {
+                        case "1.0":  player = MediaPlayer.create(this,R.raw.shaking); player.start();
+                        break;
+                        case "25.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+                            break;
+                        case "50.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+                            break;
+                        case "75.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+                            break;
+                        case "90.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+                            break;
+                    }
+
+                if (count == maxCount) {
+
+                    player.stop();
+
+                    player = MediaPlayer.create(this,R.raw.pop);
+
+                    player.start();
 
                     Intent intent = new Intent(this, Result.class);
 
 //                    String message = Integer.toString(totalTime);
 
-                    String message = Integer.toString(finalScore - totalTime);
-
+                    String message = Integer.toString((finalScore - totalTime) - error);
                     intent.putExtra(EXTRA_MESSAGE, message);
-
                     startActivity(intent);
                 }
 

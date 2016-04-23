@@ -1,5 +1,6 @@
 package com.example.jrube.shakeapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,32 +31,22 @@ public class Login extends AppCompatActivity implements AsyncResponse  {
 
     EditText UsernameEt, PasswordEt;
     TableLayout table_layout;
-    private CheckBox saveLoginCheckBox;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
-    private String saveLogin;
     private String username;
     private String password;
+    User user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.content_login);
         UsernameEt = (EditText)findViewById(R.id.etUserName);
         PasswordEt = (EditText)findViewById(R.id.etPassword);
         table_layout = (TableLayout) findViewById(R.id.tableLayout1);
-        saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
-        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        loginPrefsEditor = loginPreferences.edit();
+        user = new User(this);
 
-        saveLogin = loginPreferences.getString("saveLogin", "false");
-
-        System.out.println("Save login is: " +saveLogin);
-
-        if (saveLogin.equals("true")) {
-            loginSuccess();
-        }
     }
 
     public void OnLogin(View view) {
@@ -63,60 +54,32 @@ public class Login extends AppCompatActivity implements AsyncResponse  {
         username = UsernameEt.getText().toString();
         password = PasswordEt.getText().toString();
 
-        if(saveLoginCheckBox.isChecked()){
-            saveLogin = "true";
-        } else {
-            saveLogin = "false";
-        }
 
         String type = "login";
         BackgroundWorker backgroundWorker = new BackgroundWorker(this);
         backgroundWorker.delegate = this;
-        backgroundWorker.execute(type, username, password, saveLogin);
+        backgroundWorker.execute(type, username, password);
+    }
+
+    public void register(View view) {
+        Intent intent  = new Intent(this, Register.class);
+        startActivity(intent);
     }
 
     //this override the implemented method from asyncTask
     public void processFinish(String result){
         //Here you will receive the result fired from async class
         //of onPostExecute(result) method.
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(UsernameEt.getWindowToken(), 0);
 
+        boolean logIn = user.UserLogIn(result);
 
-
-        try {
-            JSONArray jArr = new JSONArray(result);
-            JSONObject jObj = jArr.getJSONObject(0);
-
-            System.out.println(result);
-            System.out.println(jObj);
-            System.out.println(jObj.getString("status"));
-
-
-            if(jObj.getString("status").equals("success")) {
-
-
-                if (jObj.getString("saveLogin").equals("true")) {
-                    loginPrefsEditor.putString("saveLogin", jObj.getString("saveLogin"));
-                    loginPrefsEditor.putString("username", jObj.getString("username"));
-                    loginPrefsEditor.putString("password", jObj.getString("password"));
-                    loginPrefsEditor.commit();
-                    System.out.println("Saved");
-                } else {
-                    loginPrefsEditor.clear();
-                    loginPrefsEditor.commit();
-                    System.out.println("No save :(");
-                }
-
-                loginSuccess();
-            } else {
-                System.out.println("Wrong user or password input");
-            }
+        if(logIn){
+            user.loginSuccess();
+        } else {
+            Toast.makeText(this, "Wrong user or password",
+                    Toast.LENGTH_LONG).show();
         }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
+
 
 
 
@@ -218,9 +181,7 @@ public class Login extends AppCompatActivity implements AsyncResponse  {
 //        }
     }
 
-    public void loginSuccess(){
-        startActivity(new Intent(Login.this, MainActivity.class));
-        Login.this.finish();
-    }
+
+
 
 }

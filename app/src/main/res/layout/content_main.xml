@@ -1,39 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="wrap_content" tools:context=".MainActivity"
-    android:paddingTop="?attr/actionBarSize"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingTop="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:weightSum="8"
+    android:background="#12293f"
+    android:theme="@style/AppTheme.AppBarOverlay">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logo"
+            android:src="@drawable/headow"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:padding="20dp">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Game"
+            android:id="@+id/startBtn"
+            android:onClick="start"
+            android:layout_centerHorizontal="true"
+            android:background="#6bcffd"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ffffff"
+            android:singleLine="false"
+            android:fontFamily=""
+            />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Highscores"
+            android:onClick="highscore"
+            android:id="@+id/highBtn"
+            android:layout_below="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:background="#6bcffd"
+            android:layout_marginBottom="10dp"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:id="@+id/logoutBtn"
+            android:onClick="logout"
+            android:layout_below="@+id/showHigh"
+            android:layout_alignParentStart="true"
+            android:background="#6bcffd"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="5"
+        android:layout_weight="7.4"
+        android:paddingTop="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/ladyow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="2.5" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/manow"
+            android:layout_weight="2.5" />
+    </LinearLayout>
 
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="START"
-        android:id="@+id/button"
-        android:onClick="change"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/login"
-        android:onClick="login"
-        android:layout_below="@+id/button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:id="@+id/logout"
-        android:onClick="logout"
-        android:layout_below="@+id/login"
-        android:layout_centerHorizontal="true"
-        />
-
-
-</RelativeLayout>
+</LinearLayout>

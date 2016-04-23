@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jrube.shakeapp">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>"
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    "
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,10 +33,14 @@
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BackgroundWorker"
             android:label="@string/title_activity_background_worker"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Register"
+            android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
