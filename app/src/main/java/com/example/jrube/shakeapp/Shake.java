@@ -1,6 +1,7 @@
 package com.example.jrube.shakeapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -39,7 +40,6 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
     Button startGameBtn;
     ImageView flask;
     private final int finalScore = 500;
-    private final int maxCount = 300;
     private boolean init;
     private Sensor mAccelerometer;
     private SensorManager mSensorManager;
@@ -76,8 +76,8 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
         //yText = (TextView) findViewById(R.id.yText);
         //zText = (TextView) findViewById(R.id.zText);
         userName = (TextView) findViewById(R.id.userName);
-        //theProgress = (TextView) findViewById(R.id.theProgress);
-        //progressBar = (ProgressBar) findViewById(R.id.myProgressBar);
+        theProgress = (TextView) findViewById(R.id.barStatus);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         startGameBtn = (Button) findViewById(R.id.startGame);
 
@@ -91,6 +91,10 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
 
         startGameBtn.setTypeface(mFont);
         userName.setTypeface(mFont);
+        player = MediaPlayer.create(this,R.raw.shakingmini);
+
+        theProgress.setVisibility(theProgress.INVISIBLE);
+        progressBar.setVisibility(theProgress.INVISIBLE);
 
 
 
@@ -154,8 +158,13 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_GAME);
         progressStatus = 0;
 
-        view.setVisibility(View.GONE);
-        userName.setText("SHAKE! SHAKE!! SHAKE!!!");
+        view.setVisibility(View.INVISIBLE);
+        userName.setText("SHAKE! SHAKE! SHAKE!");
+
+        //theProgress.setTextColor(Color.parseColor("#FFFFFF"));
+
+        theProgress.setVisibility(theProgress.VISIBLE);
+        progressBar.setVisibility(theProgress.VISIBLE);
     }
 
     public void shakeBottle(){
@@ -237,7 +246,7 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
             x3 = z;
 
 
-            if (diffZ > 8) {
+            if (diffZ > diffY) {
 
                 error = error+1;
             }
@@ -247,34 +256,44 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
 
                 //counter.setText("Shake Count : "+ count);
                 count = count+1;
+                procentage = (float)((count*100)/progressBar.getMax());
                 //Toast.makeText(Shake.this, "Shake Detected!", Toast.LENGTH_SHORT).show();
-                /*if (progressStatus < progressBar.getMax()) {
+                if (progressStatus < progressBar.getMax()) {
                     progressStatus = count;
                     progressBar.setProgress(progressStatus);
-                    //theProgress.setText(progressStatus + " / " + progressBar.getMax());
-                }*/
+                    theProgress.setText(procentage + " %");
 
-                procentage = (float)((count*100)/maxCount);
-                String sProcentage = Float.toString(procentage);
+                }
 
-                System.out.println("COUNT: "+ count);
-                System.out.println("MAX: "+ maxCount);
-                System.out.println("The procentage: "+ procentage);
+//                procentage = (float)((count*100)/maxCount);
+//                String sProcentage = Float.toString(procentage);
+//
+//                System.out.println("COUNT: "+ count);
+//                System.out.println("MAX: "+ maxCount);
+//                System.out.println("The procentage: "+ procentage);
+//
+//                switch (sProcentage) {
+//                        case "1.0":  player = MediaPlayer.create(this,R.raw.shaking); player.start();
+//                        break;
+//                        case "25.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+//                            break;
+//                        case "50.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+//                            break;
+//                        case "75.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+//                            break;
+//                        case "90.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
+//                            break;
+//                    }
 
-                switch (sProcentage) {
-                        case "1.0":  player = MediaPlayer.create(this,R.raw.shaking); player.start();
-                        break;
-                        case "25.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
-                            break;
-                        case "50.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
-                            break;
-                        case "75.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
-                            break;
-                        case "90.0":  player.stop(); player = MediaPlayer.create(this,R.raw.shaking); player.start();
-                            break;
-                    }
 
-                if (count == maxCount) {
+                if(player.isPlaying() == false){
+                    player.start();
+                    //player.setLooping(true);
+                }
+
+
+
+                if (count == progressBar.getMax()) {
 
                     player.stop();
 
@@ -283,8 +302,6 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
                     player.start();
 
                     Intent intent = new Intent(this, Result.class);
-
-//                    String message = Integer.toString(totalTime);
 
                     String message = Integer.toString((finalScore - totalTime) - error);
                     intent.putExtra(EXTRA_MESSAGE, message);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.jrube.shakeapp.Register"
-    tools:showIn="@layout/activity_register">
+    tools:showIn="@layout/activity_register"
+    android:background="#12293f"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Register"
+        android:id="@+id/headText"
+        android:layout_marginBottom="10dp"
+        android:textColor="#6bcffd"
+        android:textSize="20dp"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -18,7 +31,12 @@
         android:id="@+id/regUsername"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Username" />
+        android:hint="Username"
+        android:background="#0a1824"
+        android:padding="10dp"
+        android:textColorHint="#8e8e8e"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -28,15 +46,26 @@
         android:id="@+id/regPassword"
         android:layout_below="@+id/regUsername"
         android:layout_centerHorizontal="true"
-        android:hint="Password" />
+        android:hint="Password"
+        android:layout_marginBottom="10dp"
+        android:background="#0a1824"
+        android:textColor="#ffffff"
+        android:textColorHint="#8e8e8e"
+        android:padding="10dp" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:id="@+id/regConfirm"
         android:layout_below="@+id/regPassword"
         android:layout_centerHorizontal="true"
-        android:hint="Re-type password" />
+        android:hint="Re-type password"
+        android:background="#0a1824"
+        android:layout_marginBottom="20dp"
+        android:textColor="#ffffff"
+        android:textColorHint="#8e8e8e"
+        android:padding="10dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -45,5 +74,7 @@
         android:id="@+id/registerBtn"
         android:onClick="OnRegister"
         android:layout_below="@+id/regConfirm"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+        android:layout_centerHorizontal="true"
+        android:background="#6bcffd"
+        android:textColor="#ffffff" />
+</LinearLayout>

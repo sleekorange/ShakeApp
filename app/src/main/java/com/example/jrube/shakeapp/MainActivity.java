@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.johan.main";
     User user;
     Button startBtn, highBtn, logoutBtn;
-    //ImageView logo;
+    ImageView logo;
 
 
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         highBtn = (Button)findViewById(R.id.highBtn);
         logoutBtn = (Button)findViewById(R.id.logoutBtn);
 
-        //logo = (ImageView)findViewById(R.id.logo);
+        logo = (ImageView)findViewById(R.id.logo);
 
         Typeface mFont = Typeface.createFromAsset(getAssets(), "shake.ttf");
 
@@ -58,41 +58,41 @@ public class MainActivity extends AppCompatActivity {
         highBtn.setTypeface(mFont);
         logoutBtn.setTypeface(mFont);
 
-       //shakeLogo();
+       shakeLogo();
 //     test();
 
 
     }
 
-//    public void shakeLogo(){
-//
-//        final Animation shake = AnimationUtils
-//                .loadAnimation(getApplicationContext(), R.anim.shake);
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                shake.setAnimationListener(new Animation.AnimationListener() {
-//
-//                    @Override
-//                    public void onAnimationStart(Animation animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animation animation) {
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//                       shakeLogo();
-//                    }
-//                });
-//
-//                logo.startAnimation(shake);
-//            }
-//        },2000); //adding one sec delay
-//    }
+    public void shakeLogo(){
+
+        final Animation shake = AnimationUtils
+                .loadAnimation(getApplicationContext(), R.anim.shake);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                shake.setAnimationListener(new Animation.AnimationListener() {
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                       shakeLogo();
+                    }
+                });
+
+                logo.startAnimation(shake);
+            }
+        },2000); //adding one sec delay
+    }
 
 
 
@@ -131,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void login(View view) {
-        Intent intent  = new Intent(this, Login.class);
-
+    public void highScore(View view) {
+        Intent intent  = new Intent(this, Highscore.class);
         startActivity(intent);
 
     }

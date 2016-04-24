@@ -54,7 +54,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Highscores"
-            android:onClick="highscore"
+            android:onClick="highScore"
             android:id="@+id/highBtn"
             android:layout_below="@+id/button"
             android:layout_centerHorizontal="true"
@@ -65,7 +65,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"
+            android:text="Log out"
             android:id="@+id/logoutBtn"
             android:onClick="logout"
             android:layout_below="@+id/showHigh"

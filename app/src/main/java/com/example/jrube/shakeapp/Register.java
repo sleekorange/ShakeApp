@@ -1,17 +1,22 @@
 package com.example.jrube.shakeapp;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Register extends AppCompatActivity implements AsyncResponse {
 
     EditText UsernameEt, PasswordEt, ConfirmEt;
+    TextView headText;
+    Button registerBtn;
     private String username;
     private String password;
     private String confirm;
@@ -20,11 +25,21 @@ public class Register extends AppCompatActivity implements AsyncResponse {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_register);
+        setContentView(R.layout.activity_register);
         UsernameEt = (EditText)findViewById(R.id.regUsername);
         PasswordEt = (EditText)findViewById(R.id.regPassword);
         ConfirmEt = (EditText)findViewById(R.id.regConfirm);
+        headText = (TextView)findViewById(R.id.headText);
+        registerBtn = (Button)findViewById(R.id.registerBtn);
         user = new User(this);
+
+        Typeface mFont = Typeface.createFromAsset(getAssets(), "shake.ttf");
+
+        UsernameEt.setTypeface(mFont);
+        PasswordEt.setTypeface(mFont);
+        ConfirmEt.setTypeface(mFont);
+        registerBtn.setTypeface(mFont);
+        headText.setTypeface(mFont);
     }
 
     public void OnRegister(View view) {

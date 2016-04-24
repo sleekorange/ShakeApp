@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.jrube.shakeapp.Result"
-    tools:showIn="@layout/activity_result">
+    tools:showIn="@layout/activity_result"
+    android:orientation="vertical"
+    android:background="#12293f">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Message"
+        android:id="@+id/message"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sub message"
+        android:id="@+id/subMessage"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,7 +45,17 @@
         android:id="@+id/theScore"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:textColor="#379ddc" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/pagneow"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="40dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -29,23 +64,20 @@
         android:id="@+id/retry"
         android:layout_centerHorizontal="true"
         android:onClick="retry"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:background="#6bcffd"
+        android:layout_marginBottom="10dp"
+        android:textColor="#ffffff" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Back to start"
+        android:text="Back to menu"
         android:id="@+id/backStart"
         android:onClick="menu"
         android:layout_below="@+id/retry"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#6bcffd"
+        android:textColor="#ffffff" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Message"
-        android:id="@+id/message"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+</LinearLayout>
