@@ -45,7 +45,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar"
-            android:max="300" />
+            android:max="50" />
 
         <Button
             android:layout_width="fill_parent"

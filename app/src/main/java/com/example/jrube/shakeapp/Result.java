@@ -100,14 +100,11 @@ public class Result extends AppCompatActivity implements AsyncResponse {
         Intent intent  = new Intent(this, Shake.class);
 
         startActivity(intent);
-
+        finish();
     }
 
     public void menu(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
-        startActivity(intent);
-
+        finish();
     }
 
 }

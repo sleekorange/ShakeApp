@@ -301,11 +301,15 @@ public class Shake extends AppCompatActivity implements SensorEventListener {
 
                     player.start();
 
+
+
                     Intent intent = new Intent(this, Result.class);
 
                     String message = Integer.toString((finalScore - totalTime) - error);
                     intent.putExtra(EXTRA_MESSAGE, message);
                     startActivity(intent);
+
+                    finish();
                 }
 
 //                new Thread(new Runnable() {
